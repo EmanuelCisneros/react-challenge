@@ -7,20 +7,24 @@ const PhraseForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (text.trim() === "") return
+    if (!text.trim()) return
     addPhrase(text.trim())
     setText("")
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="flex items-center gap-2 mb-4">
       <input
+        type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="border p-2 mr-2 rounded w-full sm:w-auto"
         placeholder="Escribí una frase"
+        className="flex-grow p-2 rounded-md bg-gray-700 border border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-2 sm:mt-0">
+      <button
+        type="submit"
+        className="bg-purple-600 hover:bg-purple-700 transition-colors text-white font-semibold py-2 px-4 rounded-md shadow-md"
+      >
         Agregar
       </button>
     </form>
