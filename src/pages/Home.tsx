@@ -14,15 +14,22 @@ export const Home = () => {
     p.text.toLowerCase().includes(search.toLowerCase())
   )
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!text.trim()) return
-    addPhrase(text.trim())
-    setText("")
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 300))
+      addPhrase(text)
+      setText("")
+    } catch (error) {
+      console.error("Error al agregar la frase:", error)
+      throw error
+    }
   }
 
   return (
-    <main className="min-h-screen bg-neutral-900 text-white dark:bg-zinc-900 flex items-center justify-center px-4">
-      <section className="w-full max-w-2xl bg-white/5 dark:bg-white/5 backdrop-blur-md rounded-2xl p-8 shadow-2xl transition-all">
+    <main className="min-h-screen px-4 py-8 flex items-center justify-center bg-neutral-900 text-white dark:bg-zinc-900">
+      <section className="w-full max-w-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-2xl transition-all">
         <Header />
 
         <PhraseForm text={text} setText={setText} onAdd={handleAdd} />
@@ -33,7 +40,7 @@ export const Home = () => {
         </p>
 
         {filteredPhrases.length === 0 ? (
-          <p className="text-center text-gray-300 dark:text-gray-400 italic">
+          <p className="text-center text-gray-300 dark:text-gray-400 italic mt-4 animate-pulse">
             No se encontraron frases que coincidan.
           </p>
         ) : (

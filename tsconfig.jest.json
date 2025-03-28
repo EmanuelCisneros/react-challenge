@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "jsx": "react-jsx",
+      "module": "CommonJS",
+      "target": "ES6",
+      "esModuleInterop": true,
+      "moduleResolution": "Node",
+      "resolveJsonModule": true,
+      "isolatedModules": false,
+      "noEmit": true,
+      "allowJs": true,
+      "strict": true,
+      "baseUrl": "./",
+      "paths": {
+        "*": ["src/*"]
+      }
+    },
+    "include": ["src/**/*", "src/**/*.test.tsx"],
+    "exclude": ["node_modules"]
+  }  
