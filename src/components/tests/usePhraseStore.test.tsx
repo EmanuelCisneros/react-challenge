@@ -1,7 +1,6 @@
 import { act } from "react-dom/test-utils"
 import { usePhraseStore } from "../../store/usePhraseStore"
 
-// Mock correcto de crypto.randomUUID para Jest + TypeScript
 beforeAll(() => {
   Object.defineProperty(global, "crypto", {
     value: {
