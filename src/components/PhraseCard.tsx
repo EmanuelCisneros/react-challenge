@@ -1,24 +1,30 @@
+import { motion } from "framer-motion"
 import { Phrase } from "../types/Phrase"
-import { usePhrases } from "../context/PhraseContext"
+import { X } from "lucide-react"
 
-interface PhraseCardProps {
+interface Props {
   phrase: Phrase
+  onDelete: () => void
 }
 
-const PhraseCard = ({ phrase }: PhraseCardProps) => {
-  const { removePhrase } = usePhrases()
-
+const PhraseCard = ({ phrase, onDelete }: Props) => {
   return (
-    <div className="bg-gray-700 rounded-lg shadow-md p-4 flex justify-between items-center transition-transform hover:scale-105">
-      <p className="text-white">{phrase.text}</p>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="flex justify-between items-center bg-white/20 dark:bg-white/10 text-white dark:text-gray-200 rounded-xl px-4 py-2 shadow-sm hover:shadow-md transition-all"
+    >
+      <span className="text-lg">{phrase.text}</span>
+
       <button
-        onClick={() => removePhrase(phrase.id)}
-        title="Eliminar frase"
-        className="ml-4 bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-full transition"
+        onClick={onDelete}
+        className="ml-3 p-1 rounded-full hover:text-red-500 transition-colors"
+        aria-label="Eliminar frase"
       >
-        ✖
+        <X className="w-5 h-5" />
       </button>
-    </div>
+    </motion.div>
   )
 }
 

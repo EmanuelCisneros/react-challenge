@@ -1,33 +1,39 @@
-import { useState } from "react"
-import { usePhrases } from "../context/PhraseContext"
+import { motion } from "framer-motion"
+import { formStyles } from "./ui/formVariants"
+interface PhraseFormProps {
+  text: string
+  setText: (value: string) => void
+  onAdd: () => void
+}
 
-const PhraseForm = () => {
-  const [text, setText] = useState("")
-  const { addPhrase } = usePhrases()
+const { input, button } = formStyles()
 
+const PhraseForm = ({ text, setText, onAdd }: PhraseFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!text.trim()) return
-    addPhrase(text.trim())
-    setText("")
+    onAdd()
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2 mb-4">
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex gap-3 mb-6"
+    >
       <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Escribí una frase"
-        className="flex-grow p-2 rounded-md bg-gray-700 border border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className={input()}
       />
-      <button
-        type="submit"
-        className="bg-purple-600 hover:bg-purple-700 transition-colors text-white font-semibold py-2 px-4 rounded-md shadow-md"
-      >
+      <button type="submit" className={button()}>
         Agregar
       </button>
-    </form>
+    </motion.form>
   )
 }
 
